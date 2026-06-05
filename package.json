@@ -1,0 +1,21 @@
+{
+  "name": "cv-carlos",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "CV web de Carlos Vázquez Lara — DevSecOps Engineer",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.6.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3"
+  }
+}

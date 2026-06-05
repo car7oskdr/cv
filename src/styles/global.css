@@ -1,0 +1,228 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TEMA — variables CSS que cambian según data-theme en <html>.
+   Se exponen como tokens de Tailwind vía `@theme inline`, de modo que utilidades
+   como `bg-bg`, `text-ink`, `text-accent` o `border-line` siguen el tema solas.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Modo oscuro (por defecto) */
+:root,
+[data-theme='dark'] {
+  --bg: #0b1120;
+  --bg-2: #0f172a;
+  --surface: #111c33;
+  --surface-2: #16233f;
+  --ink: #e8edf6;
+  --ink-soft: #c4cfe0;
+  --muted: #7e8aa3;
+  --faint: #3a486a;
+  --line: #1e2c49;
+  --accent: #f59e0b;
+  --accent-soft: #fbbf24;
+  --accent-glow: rgba(245, 158, 11, 0.16);
+  --ok: #34d399;
+  --grid: rgba(120, 138, 163, 0.06);
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.75);
+  color-scheme: dark;
+}
+
+/* Modo claro */
+[data-theme='light'] {
+  --bg: #f5f3ee;
+  --bg-2: #efece4;
+  --surface: #ffffff;
+  --surface-2: #faf8f3;
+  --ink: #1b2436;
+  --ink-soft: #33405a;
+  --muted: #6b748a;
+  --faint: #b9c0cf;
+  --line: #e2ddd1;
+  --accent: #b45309;
+  --accent-soft: #d97706;
+  --accent-glow: rgba(180, 83, 9, 0.12);
+  --ok: #047857;
+  --grid: rgba(27, 36, 54, 0.045);
+  --shadow: 0 24px 50px -30px rgba(27, 36, 54, 0.35);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-feature-settings: 'ss01', 'ss02';
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* atmósfera: malla técnica + halo de acento, sin imágenes externas */
+  background-image:
+    radial-gradient(60rem 40rem at 78% -8%, var(--accent-glow), transparent 60%),
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 100% 100%, 44px 44px, 44px 44px;
+  background-attachment: fixed;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Grano sutil superpuesto */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--accent);
+  color: #0b1120;
+}
+
+/* Tipografía técnica para detalles */
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Foco accesible y visible */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── Etiqueta de sección (// 01 — Título) ─────────────────────────────────── */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── Cursor parpadeante del header ────────────────────────────────────────── */
+.cursor {
+  display: inline-block;
+  width: 0.6ch;
+  height: 1.05em;
+  margin-left: 0.12em;
+  translate: 0 0.12em;
+  background: var(--accent);
+  animation: blink 1.05s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── Revelado al hacer scroll / al cargar ─────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Aparición escalonada en la carga (header) */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  opacity: 0;
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Pulso del nodo «activo» del pipeline */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+  70% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+.pulse {
+  animation: pulse 2.2s ease-out infinite;
+}
+
+/* ── Toggle de tema: mostrar luna en oscuro, sol en claro ─────────────────── */
+.theme-icon {
+  position: absolute;
+  transition: opacity 0.25s ease, transform 0.4s ease;
+}
+.theme-icon--sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+.theme-icon--moon {
+  opacity: 1;
+  transform: none;
+}
+[data-theme='light'] .theme-icon--sun {
+  opacity: 1;
+  transform: none;
+}
+[data-theme='light'] .theme-icon--moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+/* ── Respeto a prefers-reduced-motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

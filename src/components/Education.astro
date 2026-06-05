@@ -1,0 +1,57 @@
+---
+import { cv } from '../data/cv';
+import Section from './Section.astro';
+import Icon from './Icon.astro';
+---
+
+<Section id="educacion" index="04" kicker="Formación e idiomas" title="Educación">
+  <div class="grid gap-6 lg:grid-cols-2">
+    <!-- Educación -->
+    <div class="reveal space-y-4">
+      {
+        cv.education.map((ed) => (
+          <article class="rounded-xl border border-line bg-surface/40 p-6">
+            <div class="mb-3 flex items-center gap-3">
+              <span class="grid h-10 w-10 place-items-center rounded-lg bg-accent/10 text-accent">
+                <Icon name="compass" size={20} />
+              </span>
+              <span class="mono rounded-full border border-line px-3 py-1 text-xs text-muted">
+                {ed.period}
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-ink">{ed.degree}</h3>
+            <p class="mt-1 text-sm text-ink-soft">{ed.school}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Idiomas -->
+    <div class="reveal rounded-xl border border-line bg-surface/40 p-6">
+      <div class="mb-5 flex items-center gap-3">
+        <span class="grid h-10 w-10 place-items-center rounded-lg bg-accent/10 text-accent">
+          <Icon name="spark" size={20} />
+        </span>
+        <h3 class="font-semibold text-ink">Idiomas</h3>
+      </div>
+      <ul class="space-y-5">
+        {
+          cv.languages.map((lang) => (
+            <li>
+              <div class="mb-1.5 flex items-baseline justify-between gap-3">
+                <span class="font-semibold text-ink">{lang.name}</span>
+                <span class="mono text-xs text-muted">{lang.level}</span>
+              </div>
+              <div class="h-1.5 overflow-hidden rounded-full bg-bg">
+                <span
+                  class="block h-full rounded-full bg-gradient-to-r from-accent to-accent-soft"
+                  style={`width:${lang.proficiency}%`}
+                />
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Section>

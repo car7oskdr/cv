@@ -1,0 +1,57 @@
+---
+import { cv } from '../data/cv';
+import Section from './Section.astro';
+import Icon from './Icon.astro';
+import Todo from './Todo.astro';
+---
+
+<Section
+  id="proyectos"
+  index="05"
+  kicker="Portafolio"
+  title="Proyectos"
+  intro="Repositorios públicos y trabajo open source."
+>
+  <div class="grid gap-4 sm:grid-cols-2">
+    {
+      cv.projects.map((project) => (
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="reveal group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-line bg-surface/40 p-6 transition hover:border-accent/50"
+        >
+          <div class="flex items-center justify-between">
+            <span class="grid h-10 w-10 place-items-center rounded-lg bg-accent/10 text-accent">
+              <Icon name="git" size={20} />
+            </span>
+            <Icon
+              name="external"
+              size={18}
+              class="text-muted transition group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </div>
+          <h3 class="mono text-lg font-semibold text-ink">{project.name}</h3>
+          <p class="text-sm text-ink-soft">{project.description}</p>
+          <div class="mt-auto flex items-center gap-2 pt-2">
+            <span class="mono truncate text-xs text-muted">
+              {project.url.replace('https://github.com/', 'github.com/')}
+            </span>
+            {project.todo && <Todo label="Ampliar descripción" />}
+          </div>
+        </a>
+      ))
+    }
+
+    <!-- Sugerencia editorial: hueco para más proyectos (README §9) -->
+    <div
+      class="reveal flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line/80 p-6 text-center"
+    >
+      <Icon name="spark" size={22} class="text-muted" />
+      <p class="mono text-xs text-muted">
+        Espacio para 2–3 proyectos más
+      </p>
+      <Todo label="Reforzar portafolio" />
+    </div>
+  </div>
+</Section>

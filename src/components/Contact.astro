@@ -1,0 +1,90 @@
+---
+import { cv } from '../data/cv';
+import Icon from './Icon.astro';
+import Todo from './Todo.astro';
+import { asset } from '../lib/url';
+
+const pdfHref = asset(cv.pdf.href);
+const year = 2026; // build estático (sin Date.now en SSG por reproducibilidad)
+---
+
+<section id="contacto" class="relative mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-24">
+  <div
+    class="reveal relative overflow-hidden rounded-2xl border border-line bg-surface/50 p-8 shadow-[var(--shadow)] sm:p-12"
+  >
+    <!-- halo de acento -->
+    <span
+      class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/15 blur-3xl"
+      aria-hidden="true"></span>
+
+    <div class="relative flex flex-col gap-6">
+      <div class="kicker flex items-center gap-3">
+        <span class="text-accent/70">06</span>
+        <span class="h-px w-8 bg-accent/40"></span>
+        <span>Hablemos</span>
+      </div>
+      <h2 class="max-w-2xl text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+        ¿Construimos infraestructura confiable juntos?
+      </h2>
+      <p class="max-w-xl text-ink-soft">
+        Abierto a oportunidades en DevOps, DevSecOps y Cloud. La forma más rápida de
+        contactarme:
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        {
+          cv.contact.map((c) => (
+            <span class="inline-flex items-center gap-1.5">
+              <a
+                href={c.href}
+                target={c.href.startsWith('http') ? '_blank' : undefined}
+                rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="mono inline-flex items-center gap-2 rounded-md border border-line bg-bg/50 px-4 py-2.5 text-sm text-ink-soft transition hover:border-accent hover:text-accent"
+              >
+                <Icon name={c.icon} size={16} class="text-accent" />
+                {c.label}
+              </a>
+              {c.todo && <Todo />}
+            </span>
+          ))
+        }
+        <a
+          href={pdfHref}
+          download
+          class="mono inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2.5 text-sm font-semibold text-bg transition hover:brightness-110"
+        >
+          <Icon name="download" size={16} />
+          CV.pdf
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer: corrida de deploy (guiño meta — el sitio se despliega solo) -->
+  <footer class="reveal mt-12">
+    <div class="mono overflow-hidden rounded-xl border border-line bg-bg/60 text-xs">
+      <div class="flex items-center gap-2 border-b border-line px-4 py-2.5 text-muted">
+        <Icon name="pipeline" size={14} class="text-accent" />
+        <span>deploy.yml</span>
+        <span class="ml-auto flex items-center gap-1.5 text-ok">
+          <Icon name="check" size={13} /> passed
+        </span>
+      </div>
+      <ul class="divide-y divide-line/60">
+        <li class="flex items-center gap-3 px-4 py-2 text-muted">
+          <Icon name="check" size={14} class="text-ok" /> checkout & setup
+        </li>
+        <li class="flex items-center gap-3 px-4 py-2 text-muted">
+          <Icon name="check" size={14} class="text-ok" /> astro build → dist/
+        </li>
+        <li class="flex items-center gap-3 px-4 py-2 text-muted">
+          <Icon name="check" size={14} class="text-ok" /> deploy → GitHub Pages
+        </li>
+      </ul>
+      <div class="flex flex-wrap items-center justify-between gap-2 border-t border-line px-4 py-3 text-muted">
+        <span>© {year} {cv.name}</span>
+        <span class="text-faint">Astro · Tailwind · GitHub Pages</span>
+      </div>
+    </div>
+  </footer>
+</section>

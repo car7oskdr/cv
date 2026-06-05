@@ -1,0 +1,15 @@
+---
+// Etiqueta visible para campos pendientes de confirmar por el dueño (README §9).
+interface Props {
+  label?: string;
+  class?: string;
+}
+const { label = 'TODO confirmar', class: className = '' } = Astro.props;
+---
+
+<span
+  class={`mono inline-flex items-center gap-1 rounded border border-dashed border-accent/60 bg-accent/10 px-1.5 py-0.5 text-[0.62rem] font-medium uppercase tracking-wider text-accent ${className}`}
+  title="Pendiente de confirmar antes de publicar"
+>
+  <span aria-hidden="true">⚠</span>{label}
+</span>

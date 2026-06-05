@@ -1,0 +1,135 @@
+---
+import { cv } from '../data/cv';
+import Icon from './Icon.astro';
+import Todo from './Todo.astro';
+import { asset } from '../lib/url';
+
+const pdfHref = asset(cv.pdf.href);
+---
+
+<section
+  id="top"
+  class="relative mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-center px-5 pb-16 pt-28 sm:px-8"
+>
+  <div class="grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
+    <!-- Columna izquierda: consola -->
+    <div>
+      <div class="rise mono mb-6 flex items-center gap-3 text-sm" style="animation-delay:.05s">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok/70"></span>
+          <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-ok"></span>
+        </span>
+        <span class="text-ink-soft">{cv.availability}</span>
+        <span class="text-faint">·</span>
+        <span class="text-muted">{cv.location}</span>
+      </div>
+
+      <p class="rise mono mb-3 text-sm text-muted" style="animation-delay:.15s">
+        <span class="text-accent">{cv.handle}@devsecops</span><span class="text-faint">:~$</span>
+        <span class="text-ink-soft">whoami</span>
+      </p>
+
+      <h1
+        class="rise text-5xl font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl"
+        style="animation-delay:.25s"
+      >
+        {cv.name}<span class="cursor" aria-hidden="true"></span>
+      </h1>
+
+      <p class="rise mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xl sm:text-2xl" style="animation-delay:.35s">
+        <span class="font-semibold text-accent">{cv.title}</span>
+        <span class="text-faint" aria-hidden="true">//</span>
+        <span class="text-ink-soft">{cv.subtitle}</span>
+      </p>
+
+      <!-- Chips de enfoque -->
+      <ul class="rise mt-7 flex flex-wrap gap-2" style="animation-delay:.45s">
+        {
+          cv.summaryHighlights.map((h) => (
+            <li class="mono rounded-full border border-line bg-surface/60 px-3 py-1 text-xs text-ink-soft">
+              {h}
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Acciones -->
+      <div class="rise mt-9 flex flex-wrap items-center gap-3" style="animation-delay:.55s">
+        <a
+          href={pdfHref}
+          download
+          class="mono inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-bg shadow-lg transition hover:brightness-110"
+        >
+          <Icon name="download" size={17} />
+          Descargar CV (PDF)
+        </a>
+        <a
+          href="#contacto"
+          class="mono inline-flex items-center gap-2 rounded-md border border-line bg-surface/40 px-5 py-3 text-sm font-semibold text-ink-soft transition hover:border-accent hover:text-accent"
+        >
+          Contacto
+          <Icon name="arrow" size={16} />
+        </a>
+        {cv.pdf.todo && <Todo label="PDF placeholder" />}
+      </div>
+
+      <!-- Enlaces de contacto -->
+      <ul class="rise mt-8 flex flex-wrap gap-x-6 gap-y-2" style="animation-delay:.65s">
+        {
+          cv.contact.map((c) => (
+            <li class="flex items-center gap-2">
+              <a
+                href={c.href}
+                target={c.href.startsWith('http') ? '_blank' : undefined}
+                rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="mono group inline-flex items-center gap-2 text-sm text-muted transition hover:text-accent"
+              >
+                <Icon name={c.icon} size={16} class="text-accent/70 transition group-hover:text-accent" />
+                {c.value}
+              </a>
+              {c.todo && <Todo />}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Columna derecha: tarjeta de perfil / foto -->
+    <div class="rise hidden lg:block" style="animation-delay:.4s">
+      <figure
+        class="relative overflow-hidden rounded-2xl border border-line bg-surface/50 p-2 shadow-[var(--shadow)]"
+      >
+        <div class="mono flex items-center gap-1.5 px-2 py-2">
+          <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+          <span class="ml-2 text-[0.7rem] text-muted">profile — zsh</span>
+        </div>
+        <div class="relative aspect-[4/5] overflow-hidden rounded-xl">
+          <!-- Placeholder visible mientras no haya foto real -->
+          <div
+            class="grid h-full w-full place-items-center bg-gradient-to-br from-surface-2 to-bg-2 text-center"
+          >
+            <div class="flex flex-col items-center gap-3 px-6">
+              <span class="grid h-16 w-16 place-items-center rounded-full border border-accent/40 bg-accent/10 text-accent">
+                <Icon name="terminal" size={28} />
+              </span>
+              <p class="mono text-xs text-muted">public/{cv.photo.src}</p>
+              {cv.photo.todo && <Todo label="Subir foto" />}
+            </div>
+          </div>
+          <!--
+            Para usar la foto real, reemplazar el bloque placeholder de arriba por:
+            <img src={asset(cv.photo.src)} alt={cv.photo.alt} width="480" height="600"
+                 class="h-full w-full object-cover" loading="eager" />
+          -->
+        </div>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Indicador de scroll -->
+  <div class="mono absolute inset-x-0 bottom-6 hidden justify-center text-xs text-muted sm:flex">
+    <span class="flex animate-bounce items-center gap-2">↓ scroll</span>
+  </div>
+</section>

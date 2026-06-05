@@ -1,0 +1,111 @@
+---
+import '../styles/global.css';
+import { cv } from '../data/cv';
+import { asset, BASE } from '../lib/url';
+
+const favicon = asset('favicon.svg');
+// Imagen social. Es un SVG branded; para máxima compatibilidad con todos los
+// scrapers (Twitter/Facebook) se recomienda exportar a og.png 1200×630 y cambiar
+// la extensión aquí.  // TODO opcional: exportar og.png
+const ogImage = new URL(asset('og.svg'), Astro.site ?? 'https://car7oskdr.github.io');
+const canonical = Astro.site ? new URL(BASE, Astro.site).href : undefined;
+const fullTitle = `${cv.name} — ${cv.title}`;
+
+// Datos estructurados JSON-LD (Person)
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: cv.name,
+  jobTitle: cv.title,
+  description: cv.subtitle,
+  address: { '@type': 'PostalAddress', addressLocality: cv.location },
+  email: 'carlosvazquezlara7@gmail.com',
+  url: canonical,
+  sameAs: cv.contact.filter((c) => c.href.startsWith('http')).map((c) => c.href),
+  knowsAbout: cv.skills.flatMap((s) => s.items),
+};
+---
+
+<!doctype html>
+<html lang={cv.meta.lang} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={favicon} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={cv.meta.description} />
+    <meta name="keywords" content={cv.meta.keywords} />
+    <meta name="author" content={cv.name} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#0b1120" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={cv.meta.description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={ogImage.href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={cv.meta.description} />
+
+    <!-- Tipografías: Bricolage Grotesque (display) + JetBrains Mono (técnica) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tema antes del primer paint (evita parpadeo) -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('cv-theme');
+          if (t === 'light' || t === 'dark') {
+            document.documentElement.dataset.theme = t;
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+  </head>
+  <body>
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-bg"
+      >Saltar al contenido</a
+    >
+    <slot />
+
+    <!-- Revelado al hacer scroll -->
+    <script is:inline>
+      (function () {
+        var els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window) || els.length === 0) {
+          els.forEach(function (el) {
+            el.classList.add('is-visible');
+          });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>

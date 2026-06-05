@@ -1,0 +1,30 @@
+---
+import { cv } from '../data/cv';
+import Section from './Section.astro';
+---
+
+<Section id="sobre-mi" index="01" kicker="Resumen profesional" title="Sobre mí">
+  <div class="reveal grid gap-8 lg:grid-cols-[1fr_auto]">
+    <p class="max-w-3xl text-lg leading-relaxed text-ink-soft">
+      {cv.summary}
+    </p>
+    <aside
+      class="mono flex min-w-[12rem] flex-col gap-3 rounded-xl border border-line bg-surface/40 p-5 text-sm"
+    >
+      <div class="flex items-center justify-between gap-6">
+        <span class="text-muted">En TI desde</span>
+        <span class="font-semibold text-ink">2007</span>
+      </div>
+      <div class="h-px bg-line"></div>
+      <div class="flex items-center justify-between gap-6">
+        <span class="text-muted">DevOps / Cloud</span>
+        <span class="font-semibold text-ink">2022</span>
+      </div>
+      <div class="h-px bg-line"></div>
+      <div class="flex items-center justify-between gap-6">
+        <span class="text-muted">Enfoque</span>
+        <span class="font-semibold text-accent">DevSecOps</span>
+      </div>
+    </aside>
+  </div>
+</Section>
