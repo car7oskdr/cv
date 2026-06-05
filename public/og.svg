@@ -19,7 +19,7 @@
 
   <text x="80" y="150" fill="#f59e0b" font-size="26" letter-spacing="6">car7os@devsecops:~$ whoami</text>
 
-  <text x="78" y="300" fill="#e8edf6" font-size="92" font-weight="800" font-family="'Bricolage Grotesque', sans-serif">Carlos Vázquez Lara</text>
+  <text x="78" y="300" fill="#e8edf6" font-size="92" font-weight="800" font-family="'Bricolage Grotesque', sans-serif">Carlos Vazquez Lara</text>
 
   <text x="80" y="370" font-size="40" font-weight="700" font-family="'Bricolage Grotesque', sans-serif">
     <tspan fill="#f59e0b">DevSecOps Engineer</tspan><tspan fill="#3a486a"> // </tspan><tspan fill="#c4cfe0">Ing. en Sistemas</tspan>

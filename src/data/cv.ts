@@ -60,7 +60,7 @@ export interface Language {
 
 export const cv = {
   // ── 4.1 Datos personales ───────────────────────────────────────────────────
-  name: 'Carlos Vázquez Lara',
+  name: 'Carlos Vazquez Lara',
   handle: 'car7os',
   title: 'DevSecOps Engineer',
   subtitle: 'Ingeniero en Sistemas Computacionales',
@@ -98,7 +98,7 @@ export const cv = {
   // Foto de perfil (colocar el archivo en public/profile.jpg)
   photo: {
     src: 'profile.jpg',
-    alt: 'Foto de Carlos Vázquez Lara',
+    alt: 'Foto de Carlos Vazquez Lara',
     todo: true, // subir foto real
   },
 
@@ -235,7 +235,7 @@ export const cv = {
   meta: {
     lang: 'es',
     description:
-      'CV de Carlos Vázquez Lara, DevSecOps Engineer especializado en AWS, ' +
+      'CV de Carlos Vazquez Lara, DevSecOps Engineer especializado en AWS, ' +
       'serverless, Infrastructure as Code (Pulumi, Terraform) y automatización CI/CD.',
     keywords: 'DevSecOps, DevOps, AWS, Pulumi, Terraform, CI/CD, serverless, IaC',
   },
