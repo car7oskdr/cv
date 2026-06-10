@@ -9,10 +9,15 @@
 
 export interface ContactItem {
   label: string;
-  value: string;
-  href: string;
+  value?: string;
+  href?: string;
   /** clave de icono inline en src/components/Icon.astro */
   icon: string;
+  /**
+   * Correo partido en dos: nunca aparece completo en el HTML estático
+   * (anti-harvesters). Un script en Base.astro lo ensambla en el cliente.
+   */
+  email?: { user: string; domain: string };
   todo?: boolean;
 }
 
@@ -70,15 +75,8 @@ export const cv = {
   contact: [
     {
       label: 'Email',
-      value: 'carlosvazquezlara7@gmail.com',
-      href: 'mailto:carlosvazquezlara7@gmail.com',
       icon: 'mail',
-    },
-    {
-      label: 'Teléfono',
-      value: '55 7351 2829',
-      href: 'tel:+525573512829',
-      icon: 'phone',
+      email: { user: 'carlosvazquezlara7', domain: 'gmail.com' },
     },
     {
       label: 'LinkedIn',
@@ -229,12 +227,29 @@ export const cv = {
 
   projects: [
     {
+      name: 'dsd',
+      url: 'https://github.com/car7oskdr/dsd',
+      description:
+        'Deploy Stack Develop: CLI que da a cada desarrollador una copia aislada de ' +
+        'un stack Serverless Framework en una cuenta AWS compartida — aplana el YAML ' +
+        'y aplica un namespace por usuario a funciones, buckets y recursos. ' +
+        'Python + Bash, en migración a Rust.',
+    },
+    {
       name: 'jenkins-jobs-factory',
       url: 'https://github.com/car7oskdr/jenkins-jobs-factory',
       description:
         'CLI en Python (uv) para crear de forma declarativa folders y Multibranch ' +
         'Pipelines de Jenkins desde YAML vía API REST: defaults, idempotencia y ' +
         'escaneo automático de ramas.',
+    },
+    {
+      name: 'logwhisperer',
+      url: 'https://github.com/car7oskdr/logwhisperer',
+      description:
+        'Servidor MCP (Model Context Protocol) que expone AWS CloudWatch Logs a ' +
+        'clientes como Claude: listar, buscar, clasificar errores por severidad y ' +
+        'lanzar consultas Logs Insights en lenguaje natural. Python 3.12 + boto3, GPLv3.',
     },
   ] satisfies Project[],
 

@@ -78,15 +78,26 @@ const pdfHref = asset(cv.pdf.href);
         {
           cv.contact.map((c) => (
             <li class="flex items-center gap-2">
-              <a
-                href={c.href}
-                target={c.href.startsWith('http') ? '_blank' : undefined}
-                rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                class="mono group inline-flex items-center gap-2 text-sm text-muted transition hover:text-accent"
-              >
-                <Icon name={c.icon} size={16} class="text-accent/70 transition group-hover:text-accent" />
-                {c.value}
-              </a>
+              {c.email ? (
+                <a
+                  data-eu={c.email.user}
+                  data-ed={c.email.domain}
+                  class="mono group inline-flex cursor-pointer items-center gap-2 text-sm text-muted transition hover:text-accent"
+                >
+                  <Icon name={c.icon} size={16} class="text-accent/70 transition group-hover:text-accent" />
+                  <span data-email-text>{c.email.user} [arroba] {c.email.domain}</span>
+                </a>
+              ) : (
+                <a
+                  href={c.href}
+                  target={c.href.startsWith('http') ? '_blank' : undefined}
+                  rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  class="mono group inline-flex items-center gap-2 text-sm text-muted transition hover:text-accent"
+                >
+                  <Icon name={c.icon} size={16} class="text-accent/70 transition group-hover:text-accent" />
+                  {c.value}
+                </a>
+              )}
               {c.todo && <Todo />}
             </li>
           ))

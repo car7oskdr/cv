@@ -19,9 +19,8 @@ const personLd = {
   jobTitle: cv.title,
   description: cv.subtitle,
   address: { '@type': 'PostalAddress', addressLocality: cv.location },
-  email: 'carlosvazquezlara7@gmail.com',
   url: canonical,
-  sameAs: cv.contact.filter((c) => c.href.startsWith('http')).map((c) => c.href),
+  sameAs: cv.contact.filter((c) => c.href?.startsWith('http')).map((c) => c.href),
   knowsAbout: cv.skills.flatMap((s) => s.items),
 };
 ---
@@ -104,6 +103,19 @@ const personLd = {
         );
         els.forEach(function (el) {
           io.observe(el);
+        });
+      })();
+    </script>
+
+    <!-- Correo ofuscado: se ensambla aquí para que la dirección completa
+         nunca exista en el HTML estático (anti-harvesters de spam) -->
+    <script is:inline>
+      (function () {
+        document.querySelectorAll('[data-eu]').forEach(function (el) {
+          var m = el.getAttribute('data-eu') + '@' + el.getAttribute('data-ed');
+          el.setAttribute('href', 'mailto:' + m);
+          var t = el.querySelector('[data-email-text]');
+          if (t) t.textContent = m;
         });
       })();
     </script>

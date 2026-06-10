@@ -35,15 +35,26 @@ const year = 2026; // build estático (sin Date.now en SSG por reproducibilidad)
         {
           cv.contact.map((c) => (
             <span class="inline-flex items-center gap-1.5">
-              <a
-                href={c.href}
-                target={c.href.startsWith('http') ? '_blank' : undefined}
-                rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                class="mono inline-flex items-center gap-2 rounded-md border border-line bg-bg/50 px-4 py-2.5 text-sm text-ink-soft transition hover:border-accent hover:text-accent"
-              >
-                <Icon name={c.icon} size={16} class="text-accent" />
-                {c.label}
-              </a>
+              {c.email ? (
+                <a
+                  data-eu={c.email.user}
+                  data-ed={c.email.domain}
+                  class="mono inline-flex cursor-pointer items-center gap-2 rounded-md border border-line bg-bg/50 px-4 py-2.5 text-sm text-ink-soft transition hover:border-accent hover:text-accent"
+                >
+                  <Icon name={c.icon} size={16} class="text-accent" />
+                  {c.label}
+                </a>
+              ) : (
+                <a
+                  href={c.href}
+                  target={c.href.startsWith('http') ? '_blank' : undefined}
+                  rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  class="mono inline-flex items-center gap-2 rounded-md border border-line bg-bg/50 px-4 py-2.5 text-sm text-ink-soft transition hover:border-accent hover:text-accent"
+                >
+                  <Icon name={c.icon} size={16} class="text-accent" />
+                  {c.label}
+                </a>
+              )}
               {c.todo && <Todo />}
             </span>
           ))

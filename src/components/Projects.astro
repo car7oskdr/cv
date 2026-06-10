@@ -12,7 +12,7 @@ import Todo from './Todo.astro';
   title="Proyectos"
   intro={cv.projectsIntro}
 >
-  <div class="grid gap-4 sm:grid-cols-2">
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {
       cv.projects.map((project) => (
         <a
@@ -43,15 +43,5 @@ import Todo from './Todo.astro';
       ))
     }
 
-    <!-- Sugerencia editorial: hueco para más proyectos (README §9) -->
-    <div
-      class="reveal flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line/80 p-6 text-center"
-    >
-      <Icon name="spark" size={22} class="text-muted" />
-      <p class="mono text-xs text-muted">
-        Espacio para 2–3 proyectos más
-      </p>
-      <Todo label="Reforzar portafolio" />
-    </div>
   </div>
 </Section>
