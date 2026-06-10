@@ -106,23 +106,14 @@ const pdfHref = asset(cv.pdf.href);
           <span class="ml-2 text-[0.7rem] text-muted">profile — zsh</span>
         </div>
         <div class="relative aspect-[4/5] overflow-hidden rounded-xl">
-          <!-- Placeholder visible mientras no haya foto real -->
-          <div
-            class="grid h-full w-full place-items-center bg-gradient-to-br from-surface-2 to-bg-2 text-center"
-          >
-            <div class="flex flex-col items-center gap-3 px-6">
-              <span class="grid h-16 w-16 place-items-center rounded-full border border-accent/40 bg-accent/10 text-accent">
-                <Icon name="terminal" size={28} />
-              </span>
-              <p class="mono text-xs text-muted">public/{cv.photo.src}</p>
-              {cv.photo.todo && <Todo label="Subir foto" />}
-            </div>
-          </div>
-          <!--
-            Para usar la foto real, reemplazar el bloque placeholder de arriba por:
-            <img src={asset(cv.photo.src)} alt={cv.photo.alt} width="480" height="600"
-                 class="h-full w-full object-cover" loading="eager" />
-          -->
+          <img
+            src={asset(cv.photo.src)}
+            alt={cv.photo.alt}
+            width="880"
+            height="1173"
+            class="h-full w-full object-cover"
+            loading="eager"
+          />
         </div>
       </figure>
     </div>

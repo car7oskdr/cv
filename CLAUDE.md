@@ -26,8 +26,10 @@ No test suite; quality bar is a warning-free build and Lighthouse 95+.
   Components contain **zero hardcoded content** — they render from `cv`. Update the CV
   by editing only this file.
 - **`todo: true` flags render a visible `<Todo>` badge.** Fields the owner must confirm
-  (LinkedIn URL, consultancy name, photo, PDF, project descriptions) are intentionally
-  surfaced in the UI, not hidden. See `docs/SPEC.md` §9. Don't silently resolve them.
+  are intentionally surfaced in the UI, not hidden. See `docs/SPEC.md` §9. Don't
+  silently resolve them. (The original todos — LinkedIn, consultancy name, photo, PDF,
+  project description — were all confirmed by the owner in June 2026; the mechanism
+  stays for future fields.)
 - **Theming is CSS-variable driven, exposed as Tailwind tokens.** `src/styles/global.css`
   defines colors under `[data-theme="dark"]` / `[data-theme="light"]`, then maps them
   via `@theme inline` to Tailwind tokens (`bg-bg`, `text-ink`, `text-accent`,
@@ -54,5 +56,6 @@ this direction rather than reaching for generic component patterns.
 ## Notes
 
 - `docs/SPEC.md` is the original full specification (acceptance checklist in §8).
-- `public/cv.pdf` and `public/og.svg` are placeholders; `public/profile.jpg` is not yet
-  added (the `<img>` in `Header.astro` is commented out behind a placeholder card).
+- `public/cv.pdf` (real CV) and `public/profile.jpg` (optimized real photo) are live;
+  `public/og.svg` is a hand-drawn branded social image. Source photos `cvl.png` (real)
+  and `cvlia.png` (cartoon) may sit untracked in `public/` — don't commit them.

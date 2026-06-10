@@ -85,7 +85,6 @@ export const cv = {
       value: 'in/car7os',
       href: 'https://www.linkedin.com/in/car7os',
       icon: 'linkedin',
-      todo: true, // confirmar URL exacta de LinkedIn
     },
     {
       label: 'GitHub',
@@ -95,17 +94,15 @@ export const cv = {
     },
   ] satisfies ContactItem[],
 
-  // Foto de perfil (colocar el archivo en public/profile.jpg)
+  // Foto de perfil (archivo en public/profile.jpg)
   photo: {
     src: 'profile.jpg',
     alt: 'Foto de Carlos Vazquez Lara',
-    todo: true, // subir foto real
   },
 
-  // Versión descargable (colocar el archivo en public/cv.pdf)
+  // Versión descargable (archivo en public/cv.pdf)
   pdf: {
     href: 'cv.pdf',
-    todo: true, // sustituir por el PDF real
   },
 
   // ── 4.2 Resumen profesional ─────────────────────────────────────────────────
@@ -124,24 +121,38 @@ export const cv = {
   experience: [
     {
       company: 'Qualtop / SYE Software',
-      note: 'consultora',
+      note: 'consultora · cliente BMV',
       role: 'DevSecOps Engineer',
       period: 'Febrero 2026 – Actualidad',
       current: true,
-      todo: true, // confirmar nombre exacto de la consultora
       summary:
-        'Automatización de plataformas CI/CD y despliegues cloud sobre AWS. ' +
-        'Especializado en Jenkins, GitLab CI, IaC (Serverless Framework / Pulumi / ' +
-        'Terraform), automatización vía APIs REST y gobierno de configuración con ' +
-        'CMDB. Integración de Jenkins, GitLab y Jira para trazabilidad de cambios, ' +
-        'releases y despliegues. Networking cloud, contenedores (Docker/Podman), ' +
-        'Linux y tooling en Python, Bash y Rust orientado a DevSecOps.',
+        'Ingeniero DevSecOps especializado en AWS, CI/CD y seguridad de la cadena ' +
+        'de suministro de software. Experiencia diseñando plataformas de ' +
+        'automatización con Jenkins, GitLab CI e Infrastructure as Code (Terraform, ' +
+        'Pulumi y Serverless Framework), integrando controles DevSecOps shift-left, ' +
+        'SBOMs, análisis SAST/SCA y gobierno de configuración mediante CMDB. ' +
+        'Sólidos conocimientos en Linux, contenedores, networking cloud, ' +
+        'automatización con APIs REST y desarrollo de herramientas en Python, ' +
+        'Bash y Rust.',
       highlights: [
-        'Diseño del modelo de Configuration Items (CI) para CMDB: taxonomía, atributos y relaciones entre servicios, aplicaciones, infraestructura y pipelines.',
-        'Integración de CMDB con Jenkins, Jira y procesos de Change Management para trazabilidad de cambios y releases.',
-        'Definición de APIs y flujos de automatización para registrar y actualizar CIs a partir de eventos de CI/CD.',
+        'Diseño e integración de CMDB con Jenkins, Jira y procesos de Change Management.',
+        'Desarrollo de Shared Libraries y pipelines reutilizables para estandarizar builds, pruebas y despliegues.',
+        'Implementación de controles DevSecOps automatizados con Quality Gates y políticas de seguridad.',
+        'Automatización de registro y actualización de Configuration Items mediante eventos CI/CD y APIs.',
+        'Diagnóstico y resolución de incidentes en pipelines, agentes, dependencias e infraestructura.',
+        'Generación de SBOMs, evidencias de cumplimiento y métricas de entrega para auditoría y trazabilidad.',
       ],
-      stack: ['Jenkins', 'GitLab CI', 'Pulumi', 'Terraform', 'CMDB', 'Python', 'Rust'],
+      stack: [
+        'Jenkins',
+        'GitLab CI',
+        'Terraform',
+        'Pulumi',
+        'CMDB',
+        'SAST/SCA',
+        'SBOM',
+        'Python',
+        'Rust',
+      ],
     },
     {
       company: 'Podemos Progresar',
@@ -212,12 +223,18 @@ export const cv = {
   ] satisfies Language[],
 
   // ── 4.7 Proyectos / Portafolio ──────────────────────────────────────────────
+  projectsIntro:
+    'Herramientas que desarrollé para resolver necesidades reales en los ' +
+    'equipos donde he trabajado, ahora publicadas como repositorios abiertos.',
+
   projects: [
     {
       name: 'jenkins-jobs-factory',
       url: 'https://github.com/car7oskdr/jenkins-jobs-factory',
-      description: 'Factory de jobs de Jenkins.',
-      todo: true, // añadir 1 línea de descripción del proyecto
+      description:
+        'CLI en Python (uv) para crear de forma declarativa folders y Multibranch ' +
+        'Pipelines de Jenkins desde YAML vía API REST: defaults, idempotencia y ' +
+        'escaneo automático de ramas.',
     },
   ] satisfies Project[],
 

@@ -39,17 +39,18 @@ src/data/cv.ts        ← fuente única de verdad (texto, experiencia, skills, e
 Los componentes no tienen texto hardcodeado: renderizan desde `cv.ts`. Para
 actualizar el CV basta con editar ese archivo.
 
-Los campos marcados con `todo: true` (LinkedIn, nombre de la consultora, foto, PDF,
-descripción de proyectos…) se muestran en el sitio con una **etiqueta visible
-«TODO»** para recordar confirmarlos antes de publicar. Ver `docs/SPEC.md` §9.
+Cualquier campo marcado con `todo: true` se muestra en el sitio con una
+**etiqueta visible «TODO»** para recordar confirmarlo antes de publicar
+(ver `docs/SPEC.md` §9). Actualmente no queda ninguno pendiente en los datos;
+el mecanismo sigue disponible para campos futuros.
 
-### Assets a reemplazar (en `public/`)
+### Assets (en `public/`)
 
-| Archivo            | Estado     | Acción                                              |
-| ------------------ | ---------- | --------------------------------------------------- |
-| `public/cv.pdf`    | placeholder | Sustituir por el CV real en PDF                     |
-| `public/profile.jpg` | falta      | Subir foto y activar el `<img>` comentado en `Header.astro` |
-| `public/og.svg`    | branded    | Opcional: exportar a `og.png` 1200×630 para social  |
+| Archivo              | Estado  | Acción                                             |
+| -------------------- | ------- | -------------------------------------------------- |
+| `public/cv.pdf`      | real    | CV descargable vigente (reemplazar al actualizarlo) |
+| `public/profile.jpg` | real    | Foto de perfil optimizada (880×1173, ~112 KB)      |
+| `public/og.svg`      | branded | Opcional: exportar a `og.png` 1200×630 para social |
 
 ---
 
