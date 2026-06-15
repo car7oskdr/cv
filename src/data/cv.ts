@@ -105,7 +105,7 @@ export const cv = {
 
   // ── 4.2 Resumen profesional ─────────────────────────────────────────────────
   summary:
-    'Trayectoria en TI desde 2007, enfocado en DevOps y Cloud desde 2022. ' +
+    'Trayectoria en TI desde 2016, enfocado en DevOps y Cloud desde 2022. ' +
     'DevSecOps / DevOps Engineer especializado en arquitectura serverless, ' +
     'Infrastructure as Code (IaC) y automatización de CI/CD, con foco en la ' +
     'modernización de sistemas legacy hacia arquitecturas cloud-native. Sólidos ' +
