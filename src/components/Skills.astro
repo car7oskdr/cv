@@ -11,6 +11,10 @@ import Icon from './Icon.astro';
   title="Habilidades"
   intro="Herramientas con las que diseño, automatizo y aseguro infraestructura."
 >
+  <p class="reveal mono mb-6 flex items-center gap-2 text-xs text-muted">
+    <span class="rounded-md border border-accent/50 bg-accent/10 px-2 py-0.5 text-accent">core</span>
+    uso principal · el resto, dominio de apoyo
+  </p>
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {
       cv.skills.map((group) => (
@@ -22,11 +26,17 @@ import Icon from './Icon.astro';
             <h3 class="font-semibold text-ink">{group.category}</h3>
           </div>
           <ul class="flex flex-wrap gap-2">
-            {group.items.map((item) => (
-              <li class="mono rounded-md border border-line bg-bg/50 px-2.5 py-1 text-xs text-ink-soft transition hover:border-accent/50 hover:text-accent">
-                {item}
-              </li>
-            ))}
+            {group.items.map((item) =>
+              group.core?.includes(item) ? (
+                <li class="mono rounded-md border border-accent/50 bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
+                  {item}
+                </li>
+              ) : (
+                <li class="mono rounded-md border border-line bg-bg/50 px-2.5 py-1 text-xs text-muted transition hover:border-accent/50 hover:text-accent">
+                  {item}
+                </li>
+              )
+            )}
           </ul>
         </article>
       ))

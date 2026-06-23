@@ -41,6 +41,8 @@ export interface SkillGroup {
   category: string;
   icon: string;
   items: string[];
+  /** subconjunto de `items` que son de uso principal: se resaltan con acento */
+  core?: string[];
 }
 
 export interface Project {
@@ -186,14 +188,49 @@ export const cv = {
 
   // ── 4.6 Habilidades técnicas ────────────────────────────────────────────────
   skills: [
-    { category: 'Lenguajes', icon: 'code', items: ['Python', 'Go', 'Rust', 'Java', 'Bash'] },
-    { category: 'Cloud', icon: 'cloud', items: ['AWS'] },
-    { category: 'Contenedores', icon: 'container', items: ['Docker', 'Kubernetes', 'Podman'] },
-    { category: 'CI/CD', icon: 'pipeline', items: ['GitLab CI', 'GitHub Actions', 'Jenkins'] },
-    { category: 'IaC', icon: 'iac', items: ['Terraform', 'Pulumi', 'Serverless Framework'] },
-    { category: 'Bases de datos', icon: 'database', items: ['MySQL', 'PostgreSQL', 'DynamoDB'] },
-    { category: 'Sistemas operativos', icon: 'terminal', items: ['GNU/Linux', 'macOS', 'Windows'] },
-    { category: 'Control de versiones', icon: 'git', items: ['Git', 'GitHub', 'GitLab'] },
+    {
+      category: 'Lenguajes',
+      icon: 'code',
+      items: ['Python', 'Go', 'Rust', 'Java', 'Bash'],
+      core: ['Python', 'Bash'],
+    },
+    { category: 'Cloud', icon: 'cloud', items: ['AWS'], core: ['AWS'] },
+    {
+      category: 'Contenedores',
+      icon: 'container',
+      items: ['Docker', 'Kubernetes', 'Podman'],
+      core: ['Docker'],
+    },
+    {
+      category: 'CI/CD',
+      icon: 'pipeline',
+      items: ['GitLab CI', 'GitHub Actions', 'Jenkins'],
+      core: ['GitLab CI', 'Jenkins'],
+    },
+    {
+      category: 'IaC',
+      icon: 'iac',
+      items: ['Terraform', 'Pulumi', 'Serverless Framework'],
+      core: ['Pulumi', 'Terraform'],
+    },
+    {
+      category: 'Bases de datos',
+      icon: 'database',
+      items: ['MySQL', 'PostgreSQL', 'DynamoDB'],
+      core: ['DynamoDB', 'MySQL'],
+    },
+    {
+      category: 'Sistemas operativos',
+      icon: 'terminal',
+      items: ['GNU/Linux', 'macOS', 'Windows'],
+      core: ['GNU/Linux'],
+    },
+    {
+      category: 'Control de versiones',
+      icon: 'git',
+      items: ['Git', 'GitHub', 'GitLab'],
+      core: ['Git', 'GitLab'],
+    },
     {
       category: 'Metodologías',
       icon: 'compass',

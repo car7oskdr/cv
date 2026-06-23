@@ -4,10 +4,10 @@ import { cv } from '../data/cv';
 import { asset, BASE } from '../lib/url';
 
 const favicon = asset('favicon.svg');
-// Imagen social. Es un SVG branded; para máxima compatibilidad con todos los
-// scrapers (Twitter/Facebook) se recomienda exportar a og.png 1200×630 y cambiar
-// la extensión aquí.  // TODO opcional: exportar og.png
-const ogImage = new URL(asset('og.svg'), Astro.site ?? 'https://car7oskdr.github.io');
+// Imagen social: PNG 1200×630 derivado de og.svg (los scrapers de Twitter/X,
+// Facebook, LinkedIn y WhatsApp NO renderizan SVG). Regenerar tras editar og.svg:
+//   node -e "require('sharp')(require('fs').readFileSync('public/og.svg'),{density:200}).resize(1200,630).png().toFile('public/og.png')"
+const ogImage = new URL(asset('og.png'), Astro.site ?? 'https://car7oskdr.github.io');
 const canonical = Astro.site ? new URL(BASE, Astro.site).href : undefined;
 const fullTitle = `${cv.name} — ${cv.title}`;
 
@@ -46,7 +46,12 @@ const personLd = {
     <meta property="og:description" content={cv.meta.description} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage.href} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage.href} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={cv.meta.description} />
 
